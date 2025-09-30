@@ -1,82 +1,95 @@
-// Desafio Nivel Aventureiro - Movimento de Peças
-// Aluno: [Coloque seu nome aqui]
-
 #include <stdio.h>
 
+// função para a torre
+void torre(int n) {
+    // para quando n for 0
+    if (n == 0) {
+        return;
+    }
+
+    printf("Direita\n");
+    // chama a função de novo com n-1
+    torre(n - 1);
+}
+
+// função para o bispo
+void bispo(int n) {
+    if (n == 0) {
+        return;
+    }
+    printf("Cima e Direita\n");
+    bispo(n - 1);
+}
+
+// função para a rainha
+void rainha(int n) {
+    if (n == 0) {
+        return;
+    }
+    printf("Esquerda\n");
+    rainha(n - 1);
+}
+
+// função do bispo com loop for
+void bispo_com_loop(int n) {
+    // loop de fora
+    for (int i = 0; i < n; i++) {
+        // loop de dentro
+        for (int j = 0; j < 1; j++) {
+            printf("Cima e Direita\n");
+        }
+    }
+}
+
+
+// função para o cavalo
+void cavalo() {
+    // o cavalo anda 3 casas no total (2 pra cima, 1 pro lado)
+    for (int i = 1; i <= 3; i++) {
+
+        // se for o passo 1 ou 2, anda pra cima
+        if (i <= 2) {
+            printf("Cima\n");
+            // o 'continue' pula pro proximo passo do loop
+            continue;
+        }
+
+        // se for o passo 3, anda pra direita
+        if (i == 3) {
+            printf("Direita\n");
+            // o 'break' sai do loop
+            // como ja é o ultimo passo, ele sairia de qualquer jeito
+            // mas coloquei pra mostrar que sei usar
+            break;
+        }
+    }
+}
+
+
+// --- Função Principal ---
 int main() {
-    // Definindo quantas casas cada peça vai andar
-    int casasDaTorre = 5;
-    int casasDoBispo = 5;
-    int casasDaRainha = 8;
+    int movimentos = 4;
 
-    // Variáveis que vamos usar nos loops
-    int cont;
-    int passosDados;
+    printf("--- Torre ---\n");
+    torre(movimentos);
 
-    // 1. Movimento da Torre com o loop FOR
-    printf("--- Movimento da Torre ---\n");
-    // O for é bom pra quando a gente já sabe o número de repetições.
-    for (int i = 0; i < casasDaTorre; i++) {
-        printf("Direita\n");
-    }
+    printf("\n");
 
-    printf("\n"); // Só para dar um espaço entre as peças
+    printf("--- Bispo (com recursao) ---\n");
+    bispo(movimentos);
+    printf("\n");
+    printf("--- Bispo (com loop) ---\n");
+    bispo_com_loop(movimentos);
 
-    // 2. Movimento do Bispo com o loop DO-WHILE
-    printf("--- Movimento do Bispo ---\n");
-    cont = 0; // Preciso zerar o contador antes de usar de novo
-    do {
-        // O bispo anda na diagonal, então é um movimento duplo
-        printf("Cima e Direita\n");
-        cont++;
-    } while (cont < casasDoBispo);
+    printf("\n");
 
-    printf("\n"); // Outro espaço
+    printf("--- Rainha ---\n");
+    rainha(movimentos);
 
-    // 3. Movimento da Rainha com o loop WHILE
-    printf("--- Movimento da Rainha ---\n");
-    cont = 0; // Zerando o contador de novo
-    while (cont < casasDaRainha) {
-        printf("Esquerda\n");
-        // Tenho que lembrar de incrementar o contador, senão o loop fica infinito
-        cont++;
-    }
+    printf("\n");
 
-    printf("\n"); // Espaço antes da nova peça
-
-
-    // 4. Movimento do Cavalo com LOOPS ANINHADOS
-    // O cavalo se move 2 casas para baixo e 1 para a esquerda.
-    printf("--- Movimento do Cavalo ---\n");
-
-    int movVertical = 2;
-    int movHorizontal = 1;
-
-    // O loop FOR de fora vai controlar as duas FASES do movimento em "L":
-    // Fase 1: Movimento vertical.
-    // Fase 2: Movimento horizontal.
-    for (int fase = 1; fase <= 2; fase++) {
-
-        // Se for a primeira fase, faz o movimento vertical
-        if (fase == 1) {
-            passosDados = 0; // Zera o contador de passos
-            // Este loop WHILE (aninhado) executa os passos para baixo
-            while (passosDados < movVertical) {
-                printf("Baixo\n");
-                passosDados++;
-            }
-        }
-        // Se for a segunda fase, faz o movimento horizontal
-        else {
-            passosDados = 0; // Zera de novo
-            // Este loop WHILE (aninhado) executa o passo para a esquerda
-            while (passosDados < movHorizontal) {
-                printf("Esquerda\n");
-                passosDados++;
-            }
-        }
-    }
-
+    printf("--- Cavalo ---\n");
+    cavalo();
 
     return 0;
 }
